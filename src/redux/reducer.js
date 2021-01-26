@@ -34,7 +34,68 @@ const initState = {
 };
 
 export const reducer = (state = initState, action) => {
-  return state;
+  switch (action.type) {
+    case SET_BUILDING_TYPE:
+      return {
+        ...state,
+        formData: {
+          ...state.formData,
+          buildingType: action.payload,
+        },
+      };
+    case SET_BUILDING_HEIGHT:
+      return {
+        ...state,
+        formData: {
+          ...state.formData,
+          buildingHeight: action.payload,
+        },
+      };
+    case SET_MATERIAL:
+      return {
+        ...state,
+        formData: {
+          ...state.formData,
+          material: action.payload,
+        },
+      };
+    case SET_SIZE_X:
+      return {
+        ...state,
+        formData: {
+          ...state.formData,
+          sizex: action.payload,
+        },
+      };
+    case SET_SIZE_Y:
+      return {
+        ...state,
+        formData: {
+          ...state.formData,
+          sizey: action.payload,
+        },
+      };
+    case SET_CURRENT_STEP_NAME:
+      return {
+        ...state,
+        currentStepName: action.payload,
+      };
+    case INCREMENT_CURRENT_STEP_NUMBER:
+      return {
+        ...state,
+        currentStepNumber: state.currentStepNumber + 1,
+      };
+    case SET_SERVER_RESPONSE:
+      return {
+        ...state,
+        serverResponse: action.payload,
+      };
+    case RESET_ALL_DATA:
+      return initState;
+
+    default:
+      return state;
+  }
 };
 
 // thunks
