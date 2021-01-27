@@ -10,18 +10,18 @@ const INCREMENT_CURRENT_STEP_NUMBER = "INCREMENT_CURRENT_STEP_NUMBER";
 const SET_SERVER_RESPONSE = "SET_SERVER_RESPONSE";
 const RESET_ALL_DATA = "RESET_ALL_DATA";
 
-const STEP_BUILDING_TYPE = "STEP_BUILDING_TYPE";
-const STEP_BUILDING_HEIGHT = "STEP_BUILDING_HEIGHT";
-const STEP_MATERIAL = "STEP_MATERIAL";
-const STEP_SIZES = "STEP_SIZES";
-const STEP_RESULT = "STEP_RESULT";
-const STEP_ERROR = "STEP_ERROR";
+export const STEP_BUILDING_TYPE = "STEP_BUILDING_TYPE";
+export const STEP_BUILDING_HEIGHT = "STEP_BUILDING_HEIGHT";
+export const STEP_MATERIAL = "STEP_MATERIAL";
+export const STEP_SIZES = "STEP_SIZES";
+export const STEP_RESULT = "STEP_RESULT";
+export const STEP_ERROR = "STEP_ERROR";
 
 const initState = {
   formData: {
-    buildingType: null,
+    buildingType: 1,
     buildingHeight: null,
-    material: null,
+    material: 1,
     sizex: null,
     sizey: null,
   },
@@ -122,12 +122,12 @@ export const calculate = () => async (dispatch, getState) => {
   const queryParams = {
     building: buildingType,
     material: material,
+    height: buildingHeight,
     sizex: sizex,
     sizey: sizey,
   };
-  if (buildingHeight !== null) queryParams.height = buildingHeight;
   try {
-    const { data } = await axios("https://data.techart.ru/lab/json/", { queryParams });
+    const { data } = await axios.get("https://data.techart.ru/lab/json/", { params: queryParams });
     dispatch(setServerResponse(data));
     data.result === "ok" ? dispatch(setCurrentStepName(STEP_RESULT)) : dispatch(setCurrentStepName(STEP_ERROR));
   } catch (error) {
@@ -146,3 +146,14 @@ export const resetAllData = () => ({ type: RESET_ALL_DATA });
 const setCurrentStepName = (stepName) => ({ type: SET_CURRENT_STEP_NAME, payload: stepName });
 const incrementCurrentStepNumber = () => ({ type: INCREMENT_CURRENT_STEP_NUMBER });
 const setServerResponse = (serverResponse) => ({ type: SET_SERVER_RESPONSE, payload: serverResponse });
+
+//selectors
+export const selectBuildingType = (state) => state.formData.buildingType;
+export const selectBuildingHeight = (state) => state.formData.buildingHeight;
+export const selectMaterial = (state) => state.formData.material;
+export const selectSizeX = (state) => state.formData.sizex;
+export const selectSizeY = (state) => state.formData.sizey;
+export const selectResponseMessage = (state) => state.serverResponse.message;
+
+export const selectCurrentStepName = (state) => state.currentStepName;
+export const selectCurrentStepNumber = (state) => state.currentStepNumber;
