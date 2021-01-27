@@ -1,14 +1,12 @@
-import logo from "./logo.svg";
+import React from "react";
+import { Steps } from "./steps/Steps";
 import "./App.css";
-import { useDispatch } from "react-redux";
-import { nextStep } from "./redux/reducer";
 
 function App() {
-  const dispatch = useDispatch();
-  dispatch(nextStep());
   return (
-    <div className="App">
-      <button onClick={() => dispatch(nextStep())}>sdfsdf</button>
+    <div className="container">
+      <h2 className="title">Калькулятор цены конструкций</h2>
+      <Steps />
     </div>
   );
 }
