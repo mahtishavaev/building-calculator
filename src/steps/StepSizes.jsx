@@ -19,7 +19,7 @@ export const StepSizes = () => {
     <>
       <div className="step__title">Шаг {stepNumber}</div>
       <div className="step__form">
-        <div className="step__name">Длина стен</div>
+        <div className="step__name">Длина стен (в метрах)</div>
         <div className="input__wrapper">
           <input
             className="input__text"
